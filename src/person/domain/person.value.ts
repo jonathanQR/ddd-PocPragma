@@ -1,4 +1,4 @@
-import { v4 } from "uuid";
+import { v4 as uuid } from "uuid";
 import { PersonEntity } from "./person.entity";
 
 export class PersonValue implements PersonEntity{
@@ -12,6 +12,7 @@ export class PersonValue implements PersonEntity{
     city: string;
 
     constructor({names,lastNames,email,documentType,document,age,city}:{names:string,lastNames:string,email:string,documentType:string,document:string,age:number,city:string}){
+        this.uuid=uuid();
         this.names=names
         this.lastNames=lastNames
         this.email=email
