@@ -1,11 +1,7 @@
-import express,{Express, Request, Response} from 'express'
+import app from "./server/index"
 
-const app: Express = express();
+const PORT = process.env.PORT || 3000;
 
-app.get('/',(req:Request,res:Response)=>{
-    res.send('typescript and node works');
-})
-
-app.listen(4321,()=>{
-    console.log('runing on 4321');
+app.listen(PORT,()=>{
+    console.log('servidor iniciado')
 })
