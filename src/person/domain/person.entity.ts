@@ -1,12 +1,17 @@
-type docs ='TI'|'CC'|'RC'|'CE'|'NIP'|'NUIP';
+export enum docsType {
+    TI = 'TI',
+    CC = "CC",
+    RC = "RC",
+    CE = "CE",
+    NUIP = "NUIP"
+
+
+  }
 export interface PersonEntity{
     names: string;
-    lastNames:string;
-    email: string;
-    uuid:string;
-    documentType: docs;
+    lastNames:string;   
+    documentType: docsType;
     document: string;
     age:number;
     city:string;
-
 }
