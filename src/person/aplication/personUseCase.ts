@@ -40,4 +40,8 @@ export class PersonUseCase{
         const data = await this.personRepository.update(document,person)
         return data;
     }
+    public delete = async(document:string)=>{
+        const data = await this.personRepository.delete(document)
+        return data;
+    }
 }

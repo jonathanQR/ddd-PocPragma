@@ -115,8 +115,35 @@ export class PersonController{
                 res.end();
             }else{
                 const data = await this.personService.update(params.document,body);
-                this.httpResponse.Ok(res, data);
+                if(!data){
+                    this.httpResponse.alreadyExist(res, "Documento ya registrado");
+                }else{
+                    this.httpResponse.Ok(res, data);
+                }
+                
             }            
+        } catch (error) {
+            console.log(error)
+            this.httpResponse.Error(res, error)
+        }
+    }
+
+    /**
+     * 
+     * @param param0 
+     * @param res 
+     * TODO verificar existencia imagen, si se unira con imagenes 
+     */
+    public delete=async({params}: Request<{document:string},{},{}>, res: Response)=> {
+        try {
+            
+            const data = await this.personService.delete(params.document);
+                if(!data){
+                    this.httpResponse.NotFound(res, "No se encontro la persona");
+                }else{
+                    this.httpResponse.Ok(res, data);
+                }                
+                    
         } catch (error) {
             console.log(error)
             this.httpResponse.Error(res, error)

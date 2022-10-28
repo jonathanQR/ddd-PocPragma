@@ -10,7 +10,7 @@ export interface PersonRepository{
     getByAge(age:string):Promise<PersonEntity[] |null>;
     createPerson(createPerson:CreatePersonDto):Promise<PersonEntity|null>;
     update(document:string,updatePerson:UpdatePersonDto):Promise<PersonEntity|null>;
-    deletePerson(document:string):Promise<PersonEntity|null>;
+    delete(document:string):Promise<PersonEntity|null>;
      
 
 }

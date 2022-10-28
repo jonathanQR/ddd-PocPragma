@@ -60,20 +60,27 @@ export class PersonService{
             throw Error('Error al crear una persona')
         }
     }
-    /**
-     * 
-     * @param document
-     * @param person 
-     * @returns 
-     * todo verificar que la nueva cedula no este duplicada "atrapar error de duplicate"
-     */
+    
     public update=async(document:string,person:UpdatePersonDto)=>{
+        
         try {
-            const response = await this.personUseCase.update(document,person);            
+            let response = await this.personUseCase.update(document,person).catch((err)=> {
+               return null
+              });
+            
             return response;
-        } catch (error) {
-            console.log(error)
+        } catch (error) {                    
             throw Error('Error al actualizar una persona')
+        }
+    }
+    public delete=async(document:string)=>{
+        
+        try {
+            let response = await this.personUseCase.delete(document);
+            
+            return response;
+        } catch (error) {                    
+            throw Error('Error al eliminar una persona')
         }
     }
 }

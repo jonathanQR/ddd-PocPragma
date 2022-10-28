@@ -24,9 +24,8 @@ export class MysqlRepository implements PersonRepository{
     }
     async getPersonByDocument(document: string): Promise<any | null> {
         
-        const response = await Person.findAll({where:{document:document}})
-        const persons= response.map((obj)=>{return new dbPersonDto(obj.get())});
-        const data = persons.length=== 0 ? null : persons;
+        const response = await Person.findOne({where:{document:document}})
+        const data = response=== null ? null : new dbPersonDto(response.get());        
         return data;
     }
     async getByDocumentType(type: string): Promise<PersonEntity[] | null> {
@@ -56,8 +55,10 @@ export class MysqlRepository implements PersonRepository{
         }        
         return data;
     }
-    deletePerson(document: string): Promise<PersonEntity | null> {
-        throw new Error("Method not implemented.");
+    async delete(document: string): Promise<PersonEntity | null> {
+        const response = await Person.findOne({where:{document:document}});
+        await response?.destroy();
+        return response 
     }
     
     

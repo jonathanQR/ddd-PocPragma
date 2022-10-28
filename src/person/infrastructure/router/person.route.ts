@@ -21,5 +21,6 @@ route.get('/person/typedocument/:type',personCtrl.getByDocumentType)
 route.get('/person/age/:age',personCtrl.getByAge)
 route.post('/person',middleware.validCreatePerson,personCtrl.createPerson)
 route.put('/person/:document',middleware.validUpdatePerson,personCtrl.update)
+route.delete('/person/:document',personCtrl.delete)
 
 export default route;
