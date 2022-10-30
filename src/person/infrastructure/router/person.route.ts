@@ -14,13 +14,13 @@ const personService = new PersonService(personUseCase)
 
 const personCtrl = new PersonController(personService);
 
-route.get('/person',personCtrl.getAll)
-route.get('/person/:id',personCtrl.getPerson)
-route.get('/person/document/:document',personCtrl.getPersonByDocument)
-route.get('/person/typedocument/:type',personCtrl.getByDocumentType)
-route.get('/person/age/:age',personCtrl.getByAge)
-route.post('/person',middleware.validCreatePerson,personCtrl.createPerson)
-route.put('/person/:document',middleware.validUpdatePerson,personCtrl.update)
-route.delete('/person/:document',personCtrl.delete)
+route.get('',personCtrl.getAll)
+route.get('/:id',personCtrl.getPerson)
+route.get('/document/:document',personCtrl.getPersonByDocument)
+route.get('/typedocument/:type',personCtrl.getByDocumentType)
+route.get('/age/:age',personCtrl.getByAge)
+route.post('/',middleware.validCreatePerson,personCtrl.createPerson)
+route.put('/:document',middleware.validUpdatePerson,personCtrl.update)
+route.delete('/:document',personCtrl.delete)
 
 export default route;

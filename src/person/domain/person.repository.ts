@@ -1,5 +1,5 @@
 import { CreatePersonDto } from "./dto/createPersonDTO";
-import { UpdatePersonDto } from "./dto/updatePersonDTo";
+import { UpdatePersonDto } from "./dto/updatePersonDTO";
 import { PersonEntity } from "./person.entity";
 
 export interface PersonRepository{

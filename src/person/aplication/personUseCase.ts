@@ -1,6 +1,5 @@
 import { PersonRepository } from "../domain/person.repository";
 import { CreatePersonDto } from "./dto/createPersonDTO";
-import { ResponseDTO } from "./dto/responseDTO";
 import { UpdatePersonDto } from "./dto/updatePersonDTo";
 
 
