@@ -26,7 +26,7 @@ export class MongoRepository implements ImageRespository{
         return data;
     }
     async delete(docuemnt: string): Promise<imageEntity | null> {
-        const response = await Image.findOneAndRemove({personDocument:docuemnt},{})
+        const response = await Image.findOneAndRemove({personDocument:docuemnt})
         const data = response === null ? null : new dbImageDto(response); 
         console.log(response)       
         return data;
