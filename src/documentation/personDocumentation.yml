@@ -1,0 +1,199 @@
+openapi: 3.0.0
+tags:
+  name: Person
+  description: API CRUD de personas
+paths:
+  /person:
+    get:
+      summary: Returns a list of persons.
+      tags: [Person]
+      operationID: profile              
+      responses:
+          200:
+            description: Regresa la lista de las personas registradas
+          404:
+            description: Regresa el mensaje de que no existe personas registradas
+          500:
+            description: Status devuelto si sucede un problema en el servidor
+    post:
+      summary: Registra una persona
+      tags: [Person]
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                names:
+                  type: string
+                lastNames:
+                  type: string
+                documentType:
+                  type: string
+                document:
+                  type: string
+                age:
+                  type: number
+                city:
+                  type: string
+      responses:
+        200:
+          description: Retorna la informacion de la persona registrada exitosamente
+        400:
+          description: Un parametro fue ingresado de forma incorrecta / no valido
+        409:
+          description: El documento ya esta registrado
+        401:
+          description: Status devuelto si sucede un problema en el servidor
+    
+  
+  /person/{document}:
+    put:
+      summary: actualiza una persona
+      tags: [Person]
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                names:
+                  type: string
+                lastNames:
+                  type: string
+                documentType:
+                  type: string
+                document:
+                  type: string
+                age:
+                  type: number
+                city:
+                  type: string
+      parameters:
+        - in: path
+          name: document
+          schema:
+            type: string
+          required: true
+          description: documento de la persona a actualizar  
+      responses:
+        200:
+          description: Retorna la informacion de la persona actualizada exitosamente
+        400:
+          description: Un parametro fue ingresado de forma incorrecta / no valido
+        409:
+          description: El documento no se encuentra registrado
+        401:
+          description: Status devuelto si sucede un problema en el servidor
+    delete:
+      summary: Delete a person.
+      tags: [Person]
+      operationID: eliminar 
+      parameters:
+        - in: path
+          name: document
+          schema:
+            type: string
+          required: true
+          description: documento de la persona a eliminar               
+      responses:
+          200:
+            description: Regresa la persona eliminada
+          404:
+            description: El documentono se encuentra registrado  
+          500:
+            description: Status devuelto si sucede un problema en el servidor
+  
+  /person/{id}:
+    get:
+      summary: Get a person by ID
+      tags: [Person]
+      operationID: Info
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID de la persona a obtener      
+      responses:
+        200:
+          description: Retorna la informacion de la persona consultada
+        404:
+          description: El id consultado no fue encontrado
+        401:
+          description: Status devuelto si sucede un problema en el servidor
+  /person/document/{document}:
+    get:
+      summary: Get a person by document
+      tags: [Person]
+      operationID: Info
+      parameters:
+        - in: path
+          name: document
+          schema:
+            type: integer
+          required: true
+          description: Document de la persona a obtener      
+      responses:
+        200:
+          description: Retorna la informacion de la persona consultada
+        404:
+          description: El documento consultado no fue encontrado
+        401:
+          description: Status devuelto si sucede un problema en el servidor
+  /person/age/{age}:
+    get:
+      summary: Get a list of people older than or equal to the queried age
+      tags: [Person]
+      operationID: Info
+      parameters:
+        - in: path
+          name: age
+          schema:
+            type: integer
+          required: true
+          description: Edad a consultar      
+      responses:
+        200:
+          description: Retorna la lista de personas que superan la edad consultada
+        404:
+          description:  No existen personas con edad mayor a la consultada
+        401:
+          description: Status devuelto si sucede un problema en el servidor
+  /person/typedocument/{type}:
+    get:
+      summary: Get a list of people by the dcument type
+      tags: [Person]
+      operationID: Info
+      parameters:
+        - in: path
+          name: type
+          schema:
+            type: string
+          required: true
+          description: tipo de documento a consultar      
+      responses:
+        200:
+          description: Retorna la lista de personas que tienen el mismo tipo de documento
+        404:
+          description: No existen personas con el tipo de documento ingresado
+        401:
+          description: Status devuelto si sucede un problema en el servidor
+  
+ 
+components:
+  schemas:
+    serverResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: Estado de la peticion
+        statusMsg:
+          type: string
+          description: Mensaje del servidor
+        data:
+          type: array
+          description: Data que responde a la solicitud realizada
+   

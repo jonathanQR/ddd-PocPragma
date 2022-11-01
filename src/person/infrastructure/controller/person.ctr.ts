@@ -111,7 +111,7 @@ export class PersonController{
         try {
             const person = await this.personService.getPersonByDocument(params.document);                         
             if(!person){
-                this.httpResponse.NotFound(res, "No se pudo encontrar la persona por documento");
+                this.httpResponse.NotFound(res, "No existen personas con ese tipo de documento");
                 res.end();
             }else{
                 const data = await this.personService.update(params.document,body);

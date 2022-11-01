@@ -33,15 +33,16 @@ export class ImageController{
     }
     public create=async({body,file}: Request, res: Response)=> {
         try {
-            const data = await this.imageService.getImage(body.personDocument);
+            if(file)
+            {const data = await this.imageService.getImage(body.personDocument);
             if(data){
                 this.httpResponse.NotFound(res,"Dcoumento ya asociado");
             }else{
             const data = await this.imageService.create(body.personDocument,file);           
-            this.httpResponse.Ok(res,data);
-            
-            
-            }            
+            this.httpResponse.Ok(res,data);           
+            }  }else{
+                this.httpResponse.noValid(res,"Debe cargar una imagen"); 
+            }          
         } catch (error) {
             console.log(error)
             this.httpResponse.Error(res,error)
@@ -53,7 +54,7 @@ export class ImageController{
             if(!oldFile){
                 this.httpResponse.NotFound(res,"Dcoumento no encontrado");
             }else{
-            const data = await this.imageService.update(params.document,file,oldFile);           
+            const data = await this.imageService.update(params.document,body.personDocument,file,oldFile);           
             this.httpResponse.Ok(res,data);            
             
             }            

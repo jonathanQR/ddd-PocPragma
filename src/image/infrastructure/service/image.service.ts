@@ -37,7 +37,7 @@ export class ImageService{
             const img = await uploadFile(file);            
             
                 response=  await this.imageUseCase.create({personDocument:document,key:img.Key,location:img.Location});
-                
+                await unlinkFile(file.path);
                 return response;            
             
             
@@ -45,13 +45,20 @@ export class ImageService{
             throw Error(error === null ? 'Error al crear la imagen' : error)
         }
     }
-    public update=async(document:string,file:any,oldFile:any)=>{
+    public update=async(document:string,bodyDocument:string,file:any,oldFile:any)=>{
         try {
-            let response =null;            
-            deleteFile(oldFile.key);
-            const img = await uploadFile(file);           
+            let response =null;
+            let img;
+            if(file){
+                deleteFile(oldFile.key);
+             img = await uploadFile(file);
+             await unlinkFile(file.path);
+            }else{
+                img={Key:oldFile.key,Location:oldFile.location}
+            }              
+                       
             
-            response=  await this.imageUseCase.update(document,{personDocument:document,key:img.Key,location:img.Location});
+            response=  await this.imageUseCase.update(document,{personDocument:bodyDocument,key:img.Key,location:img.Location});
                 
             return response;     
 
@@ -63,10 +70,10 @@ export class ImageService{
         try {
             let response =null; 
             response = await this.imageUseCase.delete(document);          
-            deleteFile(file.key);                       
+            deleteFile(file.key);                 
             return response;     
 
-        } catch (error:any) {
+        } catch (error:any) {            
             throw Error(error === null ? 'Error al crear la imagen' : error)
         }
     }

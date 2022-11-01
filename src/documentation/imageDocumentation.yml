@@ -1,0 +1,108 @@
+openapi: 3.0.0
+tags:
+  name: Image
+  description: API CRUD de imagenes
+paths:
+  /image:
+    get:
+      summary: Returns a list of images.
+      tags: [Image]
+      operationID: data              
+      responses:
+          200:
+            description: Regresa la lista de las imagenes registradas
+          404:
+            description: Regresa el mensaje de que no existen imagenes registradas
+          500:
+            description: Status devuelto si sucede un problema en el servidor
+    post:
+      summary: Registra una imagen
+      tags: [Image]
+      requestBody:
+        content: 
+           multipart/form-data:
+            schema:
+              type: object
+              properties:
+                personDocument:
+                  type: integer                
+                image:
+                  type: string
+                  format: binary               
+      responses:
+        200:
+          description: Retorna la informacion de la persona registrada exitosamente
+        400:
+          description: Un parametro fue ingresado de forma incorrecta / no valido
+        409:
+          description: El documento ya esta registrado
+        401:
+          description: Status devuelto si sucede un problema en el servidor
+  /image/{document}:
+    put:
+      summary: Actualiza una Imagen
+      tags: [Image]
+      requestBody:
+        content: 
+           multipart/form-data:
+            schema:
+              type: object
+              properties:
+                personDocument:
+                  type: integer                
+                image:
+                  type: string
+                  format: binary
+      parameters:
+        - in: path
+          name: document
+          schema:
+            type: string
+          required: true
+          description: documento referente de la image a actualizar           
+      responses:
+        200:
+          description: Retorna la informacion de la persona registrada exitosamente
+        400:
+          description: Un parametro fue ingresado de forma incorrecta / no valido
+        409:
+          description: El documento ya esta registrado
+        401:
+          description: Status devuelto si sucede un problema en el servidor
+    get:
+      summary: Get a image by ID
+      tags: [Image]
+      operationID: Info
+      parameters:
+        - in: path
+          name: document
+          schema:
+            type: integer
+          required: true
+          description: dcoumento asignado de la imagen a obtener      
+      responses:
+        200:
+          description: Retorna la informacion de la imagen consultada
+        404:
+          description: El doumento no tiene una images registrada
+        401:
+          description: Status devuelto si sucede un problema en el servidor
+  
+    delete:
+      summary: Delete a image by ID
+      tags: [Image]
+      operationID: Info
+      parameters:
+        - in: path
+          name: document
+          schema:
+            type: integer
+          required: true
+          description: dcoumento asignado de la imagen a eliminar      
+      responses:
+        200:
+          description: Retorna la informacion de la imagen eliminada
+        404:
+          description: El doumento no tiene una images registrada
+        401:
+          description: Status devuelto si sucede un problema en el servidor
